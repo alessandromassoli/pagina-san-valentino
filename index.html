@@ -186,12 +186,10 @@
       transform: scale(1.05);
     }
     /* Pagina 2: Poesia e foto */
-    /* Sfondo della pagina della poesia con gradient pastello */
     #page2 {
       background: linear-gradient(135deg, #fff0f3, #ffeef7);
       padding: 2rem;
     }
-    /* Contenitore che divide in due colonne la pagina 2 */
     .page2-content {
       display: flex;
       justify-content: center;
@@ -212,14 +210,12 @@
       justify-content: center;
       align-items: center;
     }
-    /* Stile della foto della ragazza */
     .girlfriend-photo {
       max-width: 90%;
       max-height: 80vh;
       border-radius: 20px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
-    /* Card della poesia con effetto 3D e margini verticali */
     .card {
       background: var(--card-bg);
       color: var(--text-color);
@@ -228,13 +224,13 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
       max-width: 600px;
       width: 90%;
-      margin: 3rem auto; /* Spazio sopra e sotto */
+      margin: 3rem auto;
       transform-style: preserve-3d;
       transition: transform 0.6s ease, box-shadow 0.6s ease;
       animation: cardEntrance 0.8s ease-out forwards;
       position: relative;
       overflow: hidden;
-      max-height: 80vh; /* Altezza massima della card */
+      max-height: 80vh;
     }
     @keyframes cardEntrance {
       from { opacity: 0; transform: scale(0.8) rotateY(20deg); }
@@ -244,7 +240,6 @@
       transform: rotateY(10deg) rotateX(10deg);
       box-shadow: 0 30px 60px rgba(0,0,0,0.4);
     }
-    /* Effetto glow interno alla card */
     .card::after {
       content: '';
       position: absolute;
@@ -260,13 +255,11 @@
     .card:hover::after {
       opacity: 1;
     }
-    /* Contenitore scrollabile per la poesia */
     .content {
       overflow-y: auto;
-      max-height: calc(80vh - 120px); /* Altezza per il contenuto, tenendo conto di padding e altri elementi */
-      padding-right: 1rem; /* Spazio per la scrollbar */
+      max-height: calc(80vh - 120px);
+      padding-right: 1rem;
     }
-    /* Stili personalizzati per la scrollbar */
     .content::-webkit-scrollbar {
       width: 8px;
     }
@@ -278,7 +271,6 @@
       background: var(--primary-color);
       border-radius: 4px;
     }
-    /* Per Firefox */
     .content {
       scrollbar-color: var(--primary-color) #ffeef7;
       scrollbar-width: thin;
@@ -330,7 +322,8 @@
       color: #fff;
       transform: scale(1.05);
     }
-    /* Responsive */
+    
+    /* Media Queries per la responsività */
     @media (max-width: 768px) {
       .title { font-size: 2.5rem; }
       .heart { width: 80px; height: 80px; }
@@ -338,9 +331,28 @@
       .elements img { width: 60px; }
       .page2-content {
         flex-direction: column;
+        padding: 1rem;
       }
-      .right {
-        margin-top: 2rem;
+      .card {
+        margin: 1rem auto;
+      }
+      .girlfriend-photo {
+        max-height: 50vh;
+      }
+    }
+    @media (max-width: 480px) {
+      .title { font-size: 2rem; }
+      .heart { width: 60px; height: 60px; }
+      .heart::before, .heart::after { width: 60px; height: 60px; }
+      .btn, .btn-return { font-size: 1rem; padding: 0.8rem 2rem; }
+      .elements img { width: 50px; }
+      .card {
+        padding: 1rem;
+        max-width: 90%;
+        margin: 1rem auto;
+      }
+      .content {
+        max-height: calc(70vh - 80px);
       }
     }
   </style>
