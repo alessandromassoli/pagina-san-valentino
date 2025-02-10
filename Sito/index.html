@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Per Te - San Valentino</title>
+  <!-- Importa il font Playfair Display -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Variabili globali e reset */
+    :root {
+      --primary-color: #ff4d6d;
+      --secondary-color: #fff0f3;
+      --bg-gradient: linear-gradient(135deg, #ff4d6d, #ff758c);
+      --text-color: #590d22;
+      --card-bg: #ffffff;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Playfair Display', serif;
+      overflow-x: hidden;
+      perspective: 1200px;
+      text-align: center;
+      background: radial-gradient(circle at center, #ff758c, #ff4d6d, #ff4d6d);
+      background-size: 200% 200%;
+      animation: bgAnimation 8s ease infinite;
+      position: relative;
+    }
+    @keyframes bgAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Cuoricini fluttuanti per un effetto extra WOW */
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .floating-heart {
+      position: absolute;
+      bottom: -50px;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-color);
+      transform: rotate(45deg);
+      animation: floatUp 6s linear infinite;
+      opacity: 0;
+    }
+    .floating-heart::before,
+    .floating-heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-color);
+      border-radius: 50%;
+    }
+    .floating-heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .floating-heart::after {
+      left: 10px;
+      top: 0;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg) scale(0);
+        opacity: 0;
+      }
+      25% { opacity: 1; }
+      50% {
+        transform: translateY(-100px) rotate(45deg) scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-300px) rotate(45deg) scale(1);
+        opacity: 0;
+      }
+    }
+    /* Distribuzione casuale dei cuoricini */
+    .floating-heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .floating-heart:nth-child(2) { left: 25%; animation-delay: 1s; }
+    .floating-heart:nth-child(3) { left: 40%; animation-delay: 0.5s; }
+    .floating-heart:nth-child(4) { left: 55%; animation-delay: 1.5s; }
+    .floating-heart:nth-child(5) { left: 70%; animation-delay: 0.8s; }
+    .floating-heart:nth-child(6) { left: 85%; animation-delay: 1.2s; }
+    .floating-heart:nth-child(7) { left: 50%; animation-delay: 0.2s; }
+    .floating-heart:nth-child(8) { left: 15%; animation-delay: 1.8s; }
+    
+    /* Stili per le pagine */
+    .page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.9);
+    }
+    .visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: scale(1);
+    }
+    /* Pagina 1: Introduzione */
+    #page1 {
+      background: var(--bg-gradient);
+      width: 100%;
+      height: 100vh;
+      color: #fff;
+    }
+    .title {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      animation: titleEntrance 1s ease-out forwards;
+    }
+    @keyframes titleEntrance {
+      from { opacity: 0; transform: translateY(-50px) rotate(-5deg); }
+      to { opacity: 1; transform: translateY(0) rotate(0deg); }
+    }
+    .heart {
+      width: 120px;
+      height: 120px;
+      background: var(--primary-color);
+      position: relative;
+      transform: rotate(45deg);
+      cursor: pointer;
+      margin: 1rem;
+      animation: heartPop 1s ease-out forwards;
+    }
+    @keyframes heartPop {
+      0% { opacity: 0; transform: rotate(45deg) scale(0); }
+      50% { opacity: 1; transform: rotate(45deg) scale(1.4); }
+      100% { transform: rotate(45deg) scale(1); }
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--primary-color);
+    }
+    .heart::before { top: -60px; left: 0; }
+    .heart::after { left: -60px; top: 0; }
+    .btn {
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+      animation: btnEntrance 1s 0.8s ease-out forwards;
+    }
+    @keyframes btnEntrance {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn:hover {
+      background: #fff;
+      color: var(--primary-color);
+      transform: scale(1.05);
+    }
+    /* Pagina 2: Poesia e foto */
+    /* Sfondo della pagina della poesia con gradient pastello */
+    #page2 {
+      background: linear-gradient(135deg, #fff0f3, #ffeef7);
+      padding: 2rem;
+    }
+    /* Contenitore che divide in due colonne la pagina 2 */
+    .page2-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+    .left {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Stile della foto della ragazza */
+    .girlfriend-photo {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    /* Card della poesia con effetto 3D e margini verticali */
+    .card {
+      background: var(--card-bg);
+      color: var(--text-color);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-width: 600px;
+      width: 90%;
+      margin: 3rem auto; /* Spazio sopra e sotto */
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease, box-shadow 0.6s ease;
+      animation: cardEntrance 0.8s ease-out forwards;
+      position: relative;
+      overflow: hidden;
+      max-height: 80vh; /* Altezza massima della card */
+    }
+    @keyframes cardEntrance {
+      from { opacity: 0; transform: scale(0.8) rotateY(20deg); }
+      to { opacity: 1; transform: scale(1) rotateY(0deg); }
+    }
+    .card:hover {
+      transform: rotateY(10deg) rotateX(10deg);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    }
+    /* Effetto glow interno alla card */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,77,109,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    .card:hover::after {
+      opacity: 1;
+    }
+    /* Contenitore scrollabile per la poesia */
+    .content {
+      overflow-y: auto;
+      max-height: calc(80vh - 120px); /* Altezza per il contenuto, tenendo conto di padding e altri elementi */
+      padding-right: 1rem; /* Spazio per la scrollbar */
+    }
+    /* Stili personalizzati per la scrollbar */
+    .content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .content::-webkit-scrollbar-track {
+      background: #ffeef7;
+      border-radius: 4px;
+    }
+    .content::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 4px;
+    }
+    /* Per Firefox */
+    .content {
+      scrollbar-color: var(--primary-color) #ffeef7;
+      scrollbar-width: thin;
+    }
+    .elements {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .elements img {
+      width: 80px;
+      height: auto;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+    .elements img:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+    .poem {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+    .poem p {
+      margin: 1rem 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInVerse 0.6s forwards;
+    }
+    @keyframes fadeInVerse {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn-return {
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    }
+    .btn-return:hover {
+      background: var(--primary-color);
+      color: #fff;
+      transform: scale(1.05);
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .title { font-size: 2.5rem; }
+      .heart { width: 80px; height: 80px; }
+      .heart::before, .heart::after { width: 80px; height: 80px; }
+      .elements img { width: 60px; }
+      .page2-content {
+        flex-direction: column;
+      }
+      .right {
+        margin-top: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cuoricini fluttuanti per un effetto extra WOW in background -->
+  <div class="floating-hearts">
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+    <div class="floating-heart"></div>
+  </div>
+  <!-- Pagina 1: Introduzione -->
+  <div class="page visible" id="page1">
+    <h1 class="title">I Love You</h1>
+    <div class="heart" onclick="animateHeart()"></div>
+    <button class="btn" onclick="showPoem()">Leggi la poesia</button>
+  </div>
+  <!-- Pagina 2: Poesia e foto della ragazza -->
+  <div class="page hidden" id="page2">
+    <div class="page2-content">
+      <!-- Colonna sinistra: Card con la poesia -->
+      <div class="left">
+        <div class="card">
+          <!-- Immagini che formano la scritta "Ti AmO" -->
+          <div class="elements">
+            <img src="Screenshot 2025-02-06 215651.png" alt="Ti">
+            <img src="Screenshot 2025-02-06 215705.png" alt="Am">
+            <img src="Screenshot 2025-02-06 215723.png" alt="O">
+          </div>
+          <!-- Contenitore scrollabile per la poesia -->
+          <div class="content">
+            <div class="poem">
+              <p style="animation-delay: 0.3s;">Sono già caduto nei tuoi occhi,</p>
+              <p style="animation-delay: 0.6s;">e nella mia testa ho sceso milioni di scale,</p>
+              <p style="animation-delay: 0.9s;">è bastato vederti,</p>
+              <p style="animation-delay: 1.2s;">Lì, bella, solare,</p>
+              <p style="animation-delay: 1.5s;">e poi i pomeriggi e le serate,</p>
+              <p style="animation-delay: 1.8s;">tra coccole e cuscinate.</p>
+              <p style="animation-delay: 2.1s;">Che poi per stare in pace con te stesso e con il mondo,</p>
+              <p style="animation-delay: 2.4s;">devi aver sognato... almeno un secondo.</p>
+              <p style="animation-delay: 2.7s;">E io ci ho sognato, lo sai...</p>
+              <p style="animation-delay: 3.0s;">E nel sogno volevo dirti tante di quelle cose,</p>
+              <p style="animation-delay: 3.3s;">ohh, se inventassero delle nuove parole,</p>
+              <p style="animation-delay: 3.6s;">potrei scriverti altre poesie d'amore ma tante altre.</p>
+              <p style="animation-delay: 3.9s;">Ma che senso ha sprecare tante parole,</p>
+              <p style="animation-delay: 4.2s;">tanto quando ti guardo per me sei oro in mezzo all'ottone.</p>
+            </div>
+          </div>
+          <button class="btn-return" onclick="showHome()">Torna a casa</button>
+        </div>
+      </div>
+      <!-- Colonna destra: Foto della ragazza -->
+      <div class="right">
+        <img src="Immagine WhatsApp 2025-02-10 ore 19.21.43_4e6bda07.jpg" alt="Foto della mia ragazza" class="girlfriend-photo">
+      </div>
+    </div>
+  </div>
+  <script>
+    function showPoem() {
+      // Passa dalla pagina 1 alla pagina 2
+      document.getElementById('page1').classList.remove('visible');
+      document.getElementById('page1').classList.add('hidden');
+      document.getElementById('page2').classList.remove('hidden');
+      document.getElementById('page2').classList.add('visible');
+      // Imposta il delay per ciascun verso (reset inline)
+      const verses = document.querySelectorAll('.poem p');
+      verses.forEach((verse, index) => {
+        verse.style.animationDelay = (index * 0.3 + 0.3) + 's';
+      });
+    }
+    function showHome() {
+      // Torna alla pagina iniziale
+      document.getElementById('page2').classList.remove('visible');
+      document.getElementById('page2').classList.add('hidden');
+      document.getElementById('page1').classList.remove('hidden');
+      document.getElementById('page1').classList.add('visible');
+    }
+    function animateHeart() {
+      const heart = document.querySelector('.heart');
+      heart.style.transform = 'rotate(45deg) scale(1.4)';
+      setTimeout(() => {
+        heart.style.transform = 'rotate(45deg) scale(1)';
+      }, 200);
+    }
+  </script>
+</body>
+</html>
